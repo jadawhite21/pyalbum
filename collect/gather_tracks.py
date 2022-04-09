@@ -1,9 +1,8 @@
-# import re
 import requests
 from bs4 import BeautifulSoup
 
 # Grabs track list from Wikipedia entry of album
-def gather_tracks(wiki_url: str) -> list:
+def gather_tracks(wiki_url: str) -> dict:
     try:
         req = requests.get(wiki_url)
         soup = BeautifulSoup(req.text, 'html.parser')
@@ -28,10 +27,10 @@ def gather_tracks(wiki_url: str) -> list:
                 track_names.append(td.get_text().strip("\""))
             else:
                 track_names.append(td.text.replace("\"", ""))
-        # Combine track number with track name for track order when downloading songs with YT-DL
+        # Combine track number with track name for playlist when downloading songs with YT-DL
         for th, td in zip(track_nums, track_names):
             track_order[th] = td
-        # Return track names for searching track on YT with yt-search-python
-        return track_order, track_names
+        # Return playlist for searching track on YT with yt-search-python
+        return track_order
     except requests.ConnectionError as conerr:
         print(f"{conerr}: Cannot connect to Wikipedia.")

@@ -1,4 +1,3 @@
-import json
 from youtubesearchpython import VideosSearch
 
 # Searches YouTube for corresponding album URL
