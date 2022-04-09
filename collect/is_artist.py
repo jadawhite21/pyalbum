@@ -1,8 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Checks whether album is made by desired artist
 def is_artist(wiki_url: str, artist: str) -> bool:
+    """
+    Checks whether album is made by artist
+    Arguments:
+        wiki_url: a string of the Wikipedia entry for the album
+        artist: a string of the artist's name (exact spelling)
+    Returns:
+        A Boolean value describing whether the album is associated with the artist
+    """
     # If artist name passed is invalid, raise error
     if artist == None:
         raise AttributeError("No artist found in Wikipedia. Perhaps it was misspelled?")

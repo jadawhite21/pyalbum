@@ -1,8 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Grabs track list from Wikipedia entry of album
 def gather_tracks(wiki_url: str) -> dict:
+    """
+    Collects track list from Wikipedia entry of album
+    Arguments:
+        wiki_url: a string of the Wikipedia entry for the album
+    Returns:
+        A playlist dictionary of the album
+    """
     try:
         req = requests.get(wiki_url)
         soup = BeautifulSoup(req.text, 'html.parser')

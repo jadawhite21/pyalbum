@@ -2,8 +2,15 @@ import wikipedia
 from .gather_tracks import gather_tracks
 from .is_artist import is_artist
 
-# Finds Wikipedia entry of album
 def find_album(album: str, artist: str) -> dict:
+    """
+    Finds Wikipedia entry of album
+    Arguments:
+        album: a string of the album name (exact spelling)
+        artist: a string of the artist's name (exact spelling)
+    Returns:
+        A playlist dictionary of the album
+    """
     try:
         wiki_search = wikipedia.search(album, results=10)
         wiki_search_urls = []
