@@ -1,13 +1,18 @@
 from __future__ import unicode_literals
 import youtube_dl
 
-# Downloads tracks with YouTube-DL
-def download_tracks(tracks: list, d: str) -> None:
+def download_tracks(playlist: dict, album_dir: str) -> None:
+    """
+    Downloads tracks with YouTube-DL
+    Parameters:
+        playlist: a playlist dictionary of the album
+        album_dir: a string path of the created album directory
+    """
     # Hooks to print messages during track download process
     def hooks(d):
-        if d[status] == 'downloading':
-            print(f"Now downloading {d[filename]}: {d[eta]}")
-        if d[status] == 'finished':
+        if d['status'] == 'downloading':
+            print(f"Now downloading {d['filename']}: {d['eta']}")
+        if d['status'] == 'finished':
             print("Downloading complete. Now converting audio and adding to album...")
     
     # Logger that displays messages related to track download status/mode
@@ -21,19 +26,20 @@ def download_tracks(tracks: list, d: str) -> None:
         def error(self, msg):
             print(msg)
 
+    for k,v in playlist.items():
     # YouTube-DL download options
-    for i in tracks:
         ydl_opts = {
             'format': 'bestaudio/best',
-            'outtmpl': f'{d}/{i+1}. {tracks[i]}.%(ext)s',
+            'outtmpl': f'{album_dir}/{k}. {v[0]}.%(ext)s', # FIXME: Figure out way to set track number and name in filename
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
-                'preferedquality': '192',
+                'preferredquality': '192',
             }],
             'logger': Logger(),
             'progress_hooks': [hooks],
         }
-    # YouTube-DL function to download tracks
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download(tracks)
+
+        # YouTube-DL function to download tracks
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([v[1]])
