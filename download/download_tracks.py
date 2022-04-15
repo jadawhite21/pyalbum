@@ -30,7 +30,7 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
     # YouTube-DL download options
         ydl_opts = {
             'format': 'bestaudio/best',
-            'outtmpl': f'{album_dir}/{k}. {v[0]}.%(ext)s', # FIXME: Figure out way to set track number and name in filename
+            'outtmpl': f'{album_dir}/{k}. {v[0]}.%(ext)s',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
