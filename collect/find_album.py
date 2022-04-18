@@ -5,6 +5,7 @@ from .is_artist import is_artist
 def find_album(album: str, artist: str) -> dict:
     """
     Finds Wikipedia entry of album
+    
     Parameters:
         album: a string of the album name (exact spelling)
         artist: a string of the artist's name (exact spelling)

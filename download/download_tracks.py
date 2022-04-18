@@ -4,6 +4,7 @@ import youtube_dl
 def download_tracks(playlist: dict, album_dir: str) -> None:
     """
     Downloads tracks with YouTube-DL
+    
     Parameters:
         playlist: a playlist dictionary of the album
         album_dir: a string path of the created album directory

@@ -31,6 +31,7 @@ import os
 def mkdir_album(d: str, album: str) -> str:
     """
     Creates album folder for downloading tracks
+    
     Parameters:
         d: a string path in which the album directory should be created (can be either the /home/Music directory or loaded CD disc directory)
         album: a string of the album name (exact spelling)

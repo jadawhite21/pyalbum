@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 def gather_tracks(wiki_url: str) -> dict:
     """
     Collects track list from Wikipedia entry of album
+    
     Parameters:
         wiki_url: a string of the Wikipedia entry for the album
     Returns:
