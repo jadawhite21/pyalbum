@@ -18,7 +18,7 @@ def search_yt_video(track: str, artist: str) -> str:
 def append_yt_video_to_playlist(playlist: dict, url: str) -> dict:
     """
     Adds YouTube URL to each track in playlist
-    
+
     Parameters:
         playlist: a playlist dictionary of the album
         url: a URL string of the track's YouTube video
@@ -26,5 +26,6 @@ def append_yt_video_to_playlist(playlist: dict, url: str) -> dict:
         A playlist dictionary of the album with associated YouTube video URLs
     """
     for k,v in playlist.items():
+        playlist.update({k: list(v)})
         playlist.update({k: v.append(url)})
     return playlist
