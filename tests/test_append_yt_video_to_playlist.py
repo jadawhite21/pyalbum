@@ -1,10 +1,9 @@
-from cgi import test
 from ..search.search_yt_video import append_yt_video_to_playlist
 
 # Tests the append_yt_video_to_playlist function
 def test_append_yt_video_to_playlist() -> None:
     playlist = {
-        1: ['Here Now (Intro)']
+        1: 'Here Now (Intro)'
     }
     url = 'https://www.youtube.com/watch?v=sHfswdE9Rqw'
 

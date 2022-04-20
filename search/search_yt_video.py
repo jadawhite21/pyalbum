@@ -26,6 +26,6 @@ def append_yt_video_to_playlist(playlist: dict, url: str) -> dict:
         A playlist dictionary of the album with associated YouTube video URLs
     """
     for k,v in playlist.items():
-        playlist.update({k: list(v)})
-        playlist.update({k: v.append(url)})
+        playlist.update({k: [v]})
+        playlist[k].append(url)
     return playlist
