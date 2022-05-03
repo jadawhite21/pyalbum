@@ -14,7 +14,7 @@ def main(album: str, artist: str) -> None:
         yt_playlist_dict = append_yt_video_to_playlist(tracklist_playlist_dict, artist)
         download_path = mkdir_album(music_dir, album)
         download_tracks(yt_playlist_dict, download_path)
-        print(f"Creation of album {album} by {artist} complete! Enjoy!")
+        print(f"Creation of album \"{album}\" by {artist} complete! Enjoy!")
     except (KeyboardInterrupt, HTTPError, youtube_dl.utils.DownloadError) as error:
         print(error)
         incomp_album_dir = os.listdir(download_path)
