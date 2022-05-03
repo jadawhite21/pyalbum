@@ -5,7 +5,7 @@ from .is_artist import is_artist
 def find_album(album: str, artist: str) -> dict:
     """
     Finds Wikipedia entry of album
-    
+
     Parameters:
         album: a string of the album name (exact spelling)
         artist: a string of the artist's name (exact spelling)
@@ -22,16 +22,12 @@ def find_album(album: str, artist: str) -> dict:
             print("Possible results to your search:")
             for k,v in search_choices.items():
                 print(f"{k}: {v[0]}")
-            # User attempts allowed to search for album
             attempts = 0
             total_attempts = len(wiki_search)
             while attempts < total_attempts:
                 response = int(input("Enter the associated number with your album: "))
-                # Grab URL associated with chosen response in responses list
                 if response in search_choices.keys():
                     url = search_choices[response][1]
-                    # Check if the artist name passed made the chosen album, and
-                    # if True, grab tracks from chosen album
                     if is_artist(url, artist):
                         playlist = gather_tracks(url)
                         return playlist
@@ -39,9 +35,9 @@ def find_album(album: str, artist: str) -> dict:
                         raise AttributeError("Album is not associated with artist.")
                 else:
                     attempts += 1
-                    print(f"Remaining attempts: {total_attempts - attempts}")
                     if attempts == total_attempts:
-                        raise ValueError("Associated number chosen was not in list.")
+                        raise ValueError("Not a valid number. Maximum attempts reached.")
+                    print(f"Not a valid number. Remaining attempts: {total_attempts - attempts}")
         else:
             raise IndexError("No Wikipedia results found for your album.")
     except wikipedia.exceptions.PageError as nowikierr:

@@ -31,7 +31,7 @@ import os
 def mkdir_album(d: str, album: str) -> str:
     """
     Creates album folder for downloading tracks
-    
+
     Parameters:
         d: a string path in which the album directory should be created (can be either the /home/Music directory or loaded CD disc directory)
         album: a string of the album name (exact spelling)
@@ -39,16 +39,8 @@ def mkdir_album(d: str, album: str) -> str:
         A string path of the created album directory
     """
     album_dir = os.path.join(d, album)
-    # If the directory exists and is not a file, then make the album directory
     if not os.path.exists(album_dir) and not os.path.isfile(album_dir):
         os.mkdir(album_dir)
-    # If the directory is not empty, the ask user if they would like to delete
-    # and remake a new album directory
     elif os.listdir(album_dir):
-        response = input(f"Album {album} exists. Do you want to delete this album? (Y/n): ")
-        if response.lower() == 'y':
-            os.rmdir(album_dir)
-            os.mkdir(album_dir)
-        elif response.lower() == 'n':
-            raise OSError(f"Album {album} exists. Cannot make album directory.")
+        print(f"Album \"{album}\" already exists. Continuing...")
     return album_dir

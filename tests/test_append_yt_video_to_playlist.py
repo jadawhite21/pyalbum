@@ -7,7 +7,7 @@ def test_append_yt_video_to_playlist() -> None:
     }
     url = 'https://www.youtube.com/watch?v=sHfswdE9Rqw'
 
-    assert append_yt_video_to_playlist(playlist, url) == {1: ['Here Now (Intro)', 'https://www.youtube.com/watch?v=sHfswdE9Rqw']}, "Test failed ❌"
+    assert append_yt_video_to_playlist(playlist, 'Snoh Aalegra') == {1: ['Here Now (Intro)', 'https://www.youtube.com/watch?v=sHfswdE9Rqw']}, "Test failed ❌"
 
 if __name__ == '__main__':
     test_append_yt_video_to_playlist()

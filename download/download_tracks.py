@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 import youtube_dl
+import os
 
+# def download_tracks(playlist: dict, tmp_dir: str, album_dir: str) -> None:
 def download_tracks(playlist: dict, album_dir: str) -> None:
     """
     Downloads tracks with YouTube-DL
@@ -9,14 +11,14 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
         playlist: a playlist dictionary of the album
         album_dir: a string path of the created album directory
     """
-    # Hooks to print messages during track download process
+    youtube_dl.utils.std_headers['User-Agent'] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+
     def hooks(d):
         if d['status'] == 'downloading':
-            print(f"Now downloading {d['filename']}: {d['eta']}")
+            print(f"Now downloading {d['filename']}: {d['eta']}", flush=True)
         if d['status'] == 'finished':
             print("Downloading complete. Now converting audio and adding to album...")
     
-    # Logger that displays messages related to track download status/mode
     class Logger(object):
         def debug(self, msg):
             pass
@@ -28,7 +30,6 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
             print(msg)
 
     for k,v in playlist.items():
-    # YouTube-DL download options
         ydl_opts = {
             'format': 'bestaudio/best',
             'outtmpl': f'{album_dir}/{k}. {v[0]}.%(ext)s',
@@ -41,6 +42,17 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
             'progress_hooks': [hooks],
         }
 
-        # YouTube-DL function to download tracks
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([v[1]])
+        if f'{k}. {v[0]}.mp3' in os.listdir(f'{album_dir}'):
+            print(f"Track \"{v[0]}\" already exists. Continuing...")
+            continue
+        else:
+            # with open(tmp_dir, 'r') as f:
+            #     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            #         for line in f:
+            #             ydl.download([line])
+            #     os.remove(tmp_dir)
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([v[1]])
+                os.system('youtube-dl --rm-cache-dir')
+                
+            
