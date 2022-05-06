@@ -1,6 +1,7 @@
 import wikipedia
 from .gather_tracks import gather_tracks
 from .is_artist import is_artist
+import sys
 
 def find_album(album: str, artist: str) -> dict:
     """
@@ -25,7 +26,7 @@ def find_album(album: str, artist: str) -> dict:
             attempts = 0
             total_attempts = len(wiki_search)
             while attempts < total_attempts:
-                response = int(input("Enter the associated number with your album: "))
+                response = int(input("\nEnter the associated number with your album: "))
                 if response in search_choices.keys():
                     url = search_choices[response][1]
                     if is_artist(url, artist):
@@ -41,4 +42,8 @@ def find_album(album: str, artist: str) -> dict:
         else:
             raise IndexError("No Wikipedia results found for your album.")
     except wikipedia.exceptions.PageError as nowikierr:
-        print(f"{nowikierr}: No Wikipedia entry for this album.")
+        print(f"{nowikierr.__class__.__name__}: No Wikipedia entry for this album.")
+        sys.exit(1)
+    except wikipedia.exceptions.DisambiguationError as disamberr:
+        print(f"{disamberr.__class__.__name__}: Album name is too similar to other Wikipedia entries.")
+        sys.exit(1)

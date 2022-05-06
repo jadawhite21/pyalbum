@@ -15,7 +15,7 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
 
     def hooks(d):
         if d['status'] == 'downloading':
-            print(f"Now downloading {d['filename']}: {d['eta']}", flush=True)
+            print(f"Now downloading {d['filename']}: {d['eta']}s ", end='\r')
         if d['status'] == 'finished':
             print("Downloading complete. Now converting audio and adding to album...")
     
@@ -54,5 +54,3 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([v[1]])
                 os.system('youtube-dl --rm-cache-dir')
-                
-            
