@@ -13,7 +13,7 @@ def search_yt_video(track: str, artist: str) -> str:
     Returns:
         A URL string of the first result of the YouTube search related to the track
     """
-    track_search = VideosSearch(f'{artist} {track}', limit=1, region='US')
+    track_search = VideosSearch(f'{artist} {track} track', limit=1, region='US')
     if track_search is not None:
         track_video_url = track_search.result()['result'][0]['link']
         return track_video_url

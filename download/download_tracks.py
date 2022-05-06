@@ -15,7 +15,7 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
 
     def hooks(d):
         if d['status'] == 'downloading':
-            print(f"Now downloading {d['filename']}: {d['eta']}s ", end='\r')
+            print(f"Now downloading {d['filename']}: {d['eta']} s ", end='\r')
         if d['status'] == 'finished':
             print("Downloading complete. Now converting audio and adding to album...")
     
