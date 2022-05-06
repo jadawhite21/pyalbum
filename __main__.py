@@ -15,7 +15,7 @@ def main(album: str, artist: str) -> None:
         yt_playlist_dict = append_yt_video_to_playlist(tracklist_playlist_dict, artist)
         download_tracks(yt_playlist_dict, download_path)
         print(f"Creation of album \"{album}\" by {artist} complete! Enjoy!")
-    except (KeyboardInterrupt, HTTPError, youtube_dl.utils.DownloadError):
+    except Exception:
         if os.path.exists(download_path):
             if not os.listdir(download_path):
                 os.remove(download_path)

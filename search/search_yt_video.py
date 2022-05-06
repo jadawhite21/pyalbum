@@ -1,4 +1,6 @@
 from youtubesearchpython import VideosSearch
+from datetime import datetime, timedelta
+from time import strptime
 # import tempfile
 # import os
 # import shutil
@@ -13,12 +15,21 @@ def search_yt_video(track: str, artist: str) -> str:
     Returns:
         A URL string of the first result of the YouTube search related to the track
     """
-    track_search = VideosSearch(f'{artist} {track} track', limit=1, region='US')
+    track_search = VideosSearch(f'{artist} {track}', limit=1, region='US')
     if track_search is not None:
-        track_video_url = track_search.result()['result'][0]['link']
-        return track_video_url
+        title = track_search.result()['result'][0]['title'].lower()
+        duration = strptime(track_search.result()['result'][0]['duration'], '%M:%S')
+        duration_in_sec = timedelta(hours=duration.tm_hour, minutes=duration.tm_min, seconds=duration.tm_sec).total_seconds()
+        if not "instrumental" in title:
+            if duration_in_sec < 3600:
+                track_video_url = track_search.result()['result'][0]['link']
+                return track_video_url
+            else:
+                raise AttributeError(f"Invalid YouTube video duration length for \"{track}\".")
+        else:
+            raise AttributeError(f"Invalid instrumental version of track \"{track}\".")
     else:
-        raise AttributeError(f"Cannot find YouTube video link for {artist} {track}.")
+        raise AttributeError(f"Cannot find YouTube video link for \"{artist} {track}\" query.")
 
 def append_yt_video_to_playlist(playlist: dict, artist: str) -> dict:
     """
