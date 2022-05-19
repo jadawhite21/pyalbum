@@ -35,9 +35,12 @@ python -m pyalbum "Floral Shoppe" "Macintosh Plus"
 ```
 You will then be prompted with a list of available Wikipedia results related to
 either the album or the artist. Choose the one related to the desired album.
-Finally, the program will begin creating the album. Allow some time to
-run backend processes. You will know the program is successfully running
-once the output "Now downloading..." appears.
+Finally, the program will begin creating the album.
+
+It will use the first studio album released by the artist. Studio albums with
+"Side A/Side B" track order will also be considered. Allow some time to run
+backend processes. You will know the program is successfully running once the
+output "Now downloading..." appears.
 
 ### Troubleshoot
 
