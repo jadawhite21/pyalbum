@@ -30,7 +30,7 @@ def main(album: str, artist: str) -> None:
             else:
                 incomp_album_dir = os.listdir(download_path)
                 for file in incomp_album_dir:
-                    if file.endswith('.part') or file.endswith('.webm'):
+                    if file.endswith('.part'):
                         os.remove(os.path.join(incomp_album_dir, file))
 
 if __name__ == "__main__":
