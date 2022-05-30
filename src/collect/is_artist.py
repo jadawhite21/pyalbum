@@ -1,11 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-def is_artist(wiki_url: str, artist: str) -> bool:
+def is_artist(session: requests.Session(), wiki_url: str, artist: str) -> bool:
     """
     Checks whether album is made by artist
 
     Parameters:
+        session: an existing requests Session object
         wiki_url: a string of the Wikipedia entry for the album
         artist: a string of the artist's name (exact spelling)
     Returns:
@@ -15,8 +16,8 @@ def is_artist(wiki_url: str, artist: str) -> bool:
         raise AttributeError("No artist found in Wikipedia. Perhaps it was misspelled?")
 
     try:
-        req = requests.get(wiki_url)
-        soup = BeautifulSoup(req.text, 'html.parser')
+        # req = requests.get(wiki_url)
+        soup = BeautifulSoup(session.get(wiki_url).text, 'html.parser')
         short_description = soup.find(class_="shortdescription").get_text().lower()
 
         if artist.lower() in short_description:

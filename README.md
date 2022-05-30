@@ -24,6 +24,13 @@ It is recommended to install the dependencies using a Python virtual
 environment to keep possible existing versions of the dependencies on the host
 machine from conflicting with the required versions for this program.
 
+#### Dependencies for Linux users
+
+Please install the following dependencies using your distribution's package
+manager.
+
+* ffmpeg
+
 ## Usage
 
 To use Pyalbum, first make sure the album has a proper Wikipedia page

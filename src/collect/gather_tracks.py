@@ -1,18 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 
-def gather_tracks(wiki_url: str) -> dict:
+def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
     """
     Collects track list from Wikipedia entry of album
 
     Parameters:
+        session: an existing Session object
         wiki_url: a string of the Wikipedia entry for the album
     Returns:
         A playlist dictionary of the album
     """
     try:
-        req = requests.get(wiki_url)
-        soup = BeautifulSoup(req.text, 'html.parser')
+        soup = BeautifulSoup(session.get(wiki_url).text, 'html.parser')
         tracks_tables = soup.find_all("table", class_="tracklist")
         side_tables = [t for t in tracks_tables if "Side" in t.caption.text]
         track_order = {}

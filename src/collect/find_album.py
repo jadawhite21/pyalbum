@@ -1,6 +1,8 @@
 import wikipedia
 from .gather_tracks import gather_tracks
 from .is_artist import is_artist
+import requests
+from bs4 import BeautifulSoup
 import sys
 
 def find_album(album: str, artist: str) -> dict:
@@ -13,6 +15,9 @@ def find_album(album: str, artist: str) -> dict:
     Returns:
         A playlist dictionary of the album
     """
+    session = requests.Session()
+    # soup = BeautifulSoup(session.text, 'html.parser')
+
     try:
         wiki_search = wikipedia.search(album, results=10)
         wiki_search_urls = []
@@ -33,8 +38,8 @@ def find_album(album: str, artist: str) -> dict:
                 response = int(input("Enter the associated number with your album: "))
                 if response in search_choices.keys():
                     url = search_choices[response][1]
-                    if is_artist(url, artist):
-                        playlist = gather_tracks(url)
+                    if is_artist(session, url, artist):
+                        playlist = gather_tracks(session, url)
                         return playlist
                     else:
                         raise AttributeError("Album is not associated with artist.")
