@@ -44,5 +44,5 @@ def mkdir_album(d: str, album: str) -> str:
     if not os.path.exists(album_dir) and not os.path.isfile(album_dir):
         os.mkdir(album_dir)
     elif os.listdir(album_dir):
-        print(f"Album \"{album}\" already exists. Continuing...", end='\n\n')
+        print(f"Album \"{album}\" already exists. Continuing...")
     return album_dir

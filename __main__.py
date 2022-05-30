@@ -2,8 +2,6 @@ from .src.collect.find_album import find_album
 from .src.download.download_tracks import download_tracks
 from .src.search.search_yt_video import append_yt_video_to_playlist
 from .src.system.make_album import mkdir_album
-import wikipedia
-import urllib
 import sys
 import os
 import shutil

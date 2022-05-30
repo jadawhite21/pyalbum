@@ -23,6 +23,8 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
             raise AttributeError("No track list found in this album's Wikipedia entry.")
 
         if side_tables:
+            if len(side_tables) > 2:
+                side_tables = side_tables[:2]
             tracks_tables = side_tables
 
             for table in tracks_tables:

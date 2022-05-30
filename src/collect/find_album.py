@@ -2,7 +2,6 @@ import wikipedia
 from .gather_tracks import gather_tracks
 from .is_artist import is_artist
 import requests
-from bs4 import BeautifulSoup
 import sys
 
 def find_album(album: str, artist: str) -> dict:
@@ -27,7 +26,7 @@ def find_album(album: str, artist: str) -> dict:
 
             search_choices = dict(zip(range(len(wiki_search)), zip(wiki_search, wiki_search_urls)))
 
-            print("Possible results to your search:", end='\n\n')
+            print("Possible results to your search:")
 
             for k,v in search_choices.items():
                 print(f"{k}: {v[0]}")
