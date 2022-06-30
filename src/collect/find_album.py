@@ -15,8 +15,7 @@ def find_album(album: str, artist: str) -> dict:
         A playlist dictionary of the album
     """
     session = requests.Session()
-    # soup = BeautifulSoup(session.text, 'html.parser')
-
+    
     try:
         wiki_search = wikipedia.search(album, results=10)
         wiki_search_urls = []

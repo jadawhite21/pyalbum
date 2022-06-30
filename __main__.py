@@ -16,7 +16,7 @@ def main(album: str, artist: str) -> None:
         download_tracks(yt_playlist_dict, download_path)
         print(f"Creation of album \"{album}\" by {artist} complete! Enjoy!")
     except Exception as err:
-        print(err)
+        print(f"{err.__class__.__name__}:", err)
         if os.path.exists(download_path):
             if not os.listdir(download_path):
                 if sys.platform == 'linux' or sys.platform == 'darwin':

@@ -15,56 +15,56 @@ def search_yt_video(track: str, track_duration: str, artist: str) -> str:
     Returns:
         A URL string of the first result of the YouTube search related to the track
     """
-    track_search = VideosSearch(f'{artist} {track}', region='US')
+    track_search = VideosSearch(f"{artist} {track}")
 
     i = 0
-    while i < len(track_search.result()['result']):
-        if track_search is not None:
-            if i == len(track_search.result()['result']):
-                raise IndexError(f"Reached end of search results for \"{track}\".")
+    if track_search is not None:
+        while i < len(track_search.result()['result']):
+                if i == len(track_search.result()['result']):
+                    raise IndexError(f"Reached end of search results for \"{track}\".")
 
-            video_title = track_search.result()['result'][i]['title'].lower()
-            video_duration = track_search.result()['result'][i]['duration']
-            video_description = track_search.result()['result'][i]['descriptionSnippet'][0]['text'].lower()
-            channel_name = track_search.result()['result'][i]['channel']['name'].lower()
+                video_title = track_search.result()['result'][i]['title'].lower()
+                video_duration = track_search.result()['result'][i]['duration']
+                video_description = track_search.result()['result'][i]['descriptionSnippet'][0]['text'].lower()
+                channel_name = track_search.result()['result'][i]['channel']['name'].lower()
 
-            if len(video_duration.split(":")) <= 2:
-                video_duration_tstruct = strptime(video_duration, '%M:%S')
-            else:
-                video_duration_tstruct = strptime(video_duration, '%H:%M:%S')
+                if len(video_duration.split(":")) <= 2:
+                    video_duration_tstruct = strptime(video_duration, '%M:%S')
+                else:
+                    video_duration_tstruct = strptime(video_duration, '%H:%M:%S')
 
-            if len(track_duration.split(":")) <= 2:
-                track_duration_tstruct = strptime(track_duration, '%M:%S')
-            else:
-                track_duration_tstruct = strptime(track_duration, '%H:%M:%S')
+                if len(track_duration.split(":")) <= 2:
+                    track_duration_tstruct = strptime(track_duration, '%M:%S')
+                else:
+                    track_duration_tstruct = strptime(track_duration, '%H:%M:%S')
 
-            video_duration_in_sec = timedelta(
-                hours=video_duration_tstruct.tm_hour or 0,
-                minutes=video_duration_tstruct.tm_min,
-                seconds=video_duration_tstruct.tm_sec
-            )
-            track_duration_in_sec = timedelta(
-                hours=track_duration_tstruct.tm_hour or 0,
-                minutes=track_duration_tstruct.tm_min,
-                seconds=track_duration_tstruct.tm_sec + 10
-            )
+                video_duration_in_sec = timedelta(
+                    hours=video_duration_tstruct.tm_hour or 0,
+                    minutes=video_duration_tstruct.tm_min,
+                    seconds=video_duration_tstruct.tm_sec
+                )
+                track_duration_in_sec = timedelta(
+                    hours=track_duration_tstruct.tm_hour or 0,
+                    minutes=track_duration_tstruct.tm_min,
+                    seconds=track_duration_tstruct.tm_sec + 10
+                )
 
-            if artist.lower() in video_title or artist.lower() in video_description or artist.lower() in channel_name:
-                if not "instrumental" in video_title or not "concert" in video_title:
-                    if video_duration_in_sec <= track_duration_in_sec:
-                        return track_search.result()['result'][i]['link']
+                if artist.lower() in video_title or artist.lower() in video_description or artist.lower() in channel_name:
+                    if not "instrumental" in video_title or not "concert" in video_title:
+                        if video_duration_in_sec <= track_duration_in_sec:
+                            return track_search.result()['result'][i]['link']
+                        else:
+                            i += 1
+                            # if i == len(track_search.result()['result']):
+                            #     raise AttributeError(f"Invalid YouTube video duration length for \"{track}\".")
                     else:
                         i += 1
-                        # if i == len(track_search.result()['result']):
-                        #     raise AttributeError(f"Invalid YouTube video duration length for \"{track}\".")
                 else:
                     i += 1
-            else:
-                i += 1
-                # if i == len(track_search.result()['result']):
-                #     raise AttributeError(f"Invalid instrumental version of track \"{track}\".")
-        else:
-            raise AttributeError(f"Cannot find YouTube video link for \"{artist} {track}\" query.")
+                    # if i == len(track_search.result()['result']):
+                    #     raise AttributeError(f"Invalid instrumental version of track \"{track}\".")
+    else:
+        raise AttributeError(f"Cannot find YouTube video link for \"{artist} {track}\" query.")
     # track_search = VideosSearch(f'{artist} {track}', limit=1, region='US')
     # if track_search is not None:
     #     video_title = track_search.result()['result'][0]['title'].lower()

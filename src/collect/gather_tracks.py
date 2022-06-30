@@ -14,7 +14,7 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
     try:
         soup = BeautifulSoup(session.get(wiki_url).text, 'html.parser')
         tracks_tables = soup.find_all("table", class_="tracklist")
-        side_tables = [t for t in tracks_tables if "Side" in t.caption.text]
+        side_tables = [table for table in tracks_tables if "Side" in table.caption.text]
         track_order = {}
         track_names = []
         track_durations = []
@@ -24,7 +24,9 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
 
         if side_tables:
             if len(side_tables) > 2:
-                side_tables = side_tables[:2]
+                if [table.caption.text for table in side_tables] == list({table.caption.text for table in side_tables}):
+                    side_tables = side_tables[:2]
+
             tracks_tables = side_tables
 
             for table in tracks_tables:
@@ -40,6 +42,8 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
                     track_duration = tr.find("td", attrs={
                         'style': 'padding-right:10px;text-align:right;vertical-align:top'
                     })
+                    if track_duration.sup:
+                        track_duration.sup.decompose()
                     track_durations.append(track_duration.get_text())
         else:
             tracks_table = soup.find("table", class_="tracklist")
@@ -56,6 +60,8 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
                 track_duration = tr.find("td", attrs={
                     'style': 'padding-right:10px;text-align:right;vertical-align:top'
                 })
+                if track_duration.sup:
+                    track_duration.sup.decompose()
                 track_durations.append(track_duration.get_text())
 
         track_nums = list(range(1, len(track_names)+1))

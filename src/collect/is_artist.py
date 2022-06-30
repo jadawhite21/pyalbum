@@ -16,7 +16,6 @@ def is_artist(session: requests.Session(), wiki_url: str, artist: str) -> bool:
         raise AttributeError("No artist found in Wikipedia. Perhaps it was misspelled?")
 
     try:
-        # req = requests.get(wiki_url)
         soup = BeautifulSoup(session.get(wiki_url).text, 'html.parser')
         short_description = soup.find(class_="shortdescription").get_text().lower()
 
