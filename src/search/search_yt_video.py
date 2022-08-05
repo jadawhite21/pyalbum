@@ -22,22 +22,18 @@ def search_yt_video(track: str, track_duration: str, artist: str) -> str:
         while i < len(track_search.result()['result']):
                 if i == len(track_search.result()['result']):
                     raise IndexError(f"Reached end of search results for \"{track}\".")
-
                 video_title = track_search.result()['result'][i]['title'].lower()
                 video_duration = track_search.result()['result'][i]['duration']
                 video_description = track_search.result()['result'][i]['descriptionSnippet'][0]['text'].lower()
                 channel_name = track_search.result()['result'][i]['channel']['name'].lower()
-
                 if len(video_duration.split(":")) <= 2:
                     video_duration_tstruct = strptime(video_duration, '%M:%S')
                 else:
                     video_duration_tstruct = strptime(video_duration, '%H:%M:%S')
-
                 if len(track_duration.split(":")) <= 2:
                     track_duration_tstruct = strptime(track_duration, '%M:%S')
                 else:
                     track_duration_tstruct = strptime(track_duration, '%H:%M:%S')
-
                 video_duration_in_sec = timedelta(
                     hours=video_duration_tstruct.tm_hour or 0,
                     minutes=video_duration_tstruct.tm_min,
@@ -48,7 +44,6 @@ def search_yt_video(track: str, track_duration: str, artist: str) -> str:
                     minutes=track_duration_tstruct.tm_min,
                     seconds=track_duration_tstruct.tm_sec + 10
                 )
-
                 if artist.lower() in video_title or artist.lower() in video_description or artist.lower() in channel_name:
                     if not "instrumental" in video_title or not "concert" in video_title:
                         if video_duration_in_sec <= track_duration_in_sec:

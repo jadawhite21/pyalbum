@@ -40,7 +40,6 @@ def mkdir_album(d: str, album: str) -> str:
         A string path of the created album directory
     """
     album_dir = os.path.join(d, album)
-    
     if not os.path.exists(album_dir) and not os.path.isfile(album_dir):
         os.mkdir(album_dir)
     elif os.listdir(album_dir):

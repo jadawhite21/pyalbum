@@ -14,13 +14,15 @@ def is_artist(session: requests.Session(), wiki_url: str, artist: str) -> bool:
     """
     if artist is None:
         raise AttributeError("No artist found in Wikipedia. Perhaps it was misspelled?")
-
     try:
         soup = BeautifulSoup(session.get(wiki_url).text, 'html.parser')
         short_description = soup.find(class_="shortdescription").get_text().lower()
-
+        infobox = soup.find(class_="infobox-header description")
+        contributor = infobox.find(class_="contributor").a.get_text().lower()
         if artist.lower() in short_description:
             return True
+        elif artist.lower() in contributor:
+                return True
         return False
     except requests.ConnectionError as conerr:
         print(f"{conerr.__class__.__name__}: Cannot connect to Wikipedia.")

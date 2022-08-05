@@ -43,7 +43,6 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
             'logger': Logger(),
             'progress_hooks': [hooks],
         }
-
         if f'{k}. {v["track"]}.mp3' in os.listdir(f'{album_dir}'):
             print(f"Track \"{v['track']}\" already exists. Continuing...")
             continue

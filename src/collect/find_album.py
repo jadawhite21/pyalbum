@@ -22,14 +22,10 @@ def find_album(album: str, artist: str) -> dict:
         if len(wiki_search) > 0:
             for i in wiki_search:
                 wiki_search_urls.append(wikipedia.page(i, auto_suggest=False, redirect=False).url)
-
             search_choices = dict(zip(range(len(wiki_search)), zip(wiki_search, wiki_search_urls)))
-
             print("Possible results to your search:")
-
             for k,v in search_choices.items():
                 print(f"{k}: {v[0]}")
-
             attempts = 0
             total_attempts = len(wiki_search)
             while attempts < total_attempts:
