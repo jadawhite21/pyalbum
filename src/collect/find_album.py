@@ -15,7 +15,6 @@ def find_album(album: str, artist: str) -> dict:
         A playlist dictionary of the album
     """
     session = requests.Session()
-    
     try:
         wiki_search = wikipedia.search(album, results=10)
         wiki_search_urls = []
@@ -49,5 +48,3 @@ def find_album(album: str, artist: str) -> dict:
         sys.exit(1)
     except wikipedia.exceptions.DisambiguationError as disamberr:
         print(f"{disamberr.__class__.__name__}: Album name is too similar to other Wikipedia entries.")
-        sys.exit(1)
-

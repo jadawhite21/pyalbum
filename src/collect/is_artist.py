@@ -22,7 +22,7 @@ def is_artist(session: requests.Session(), wiki_url: str, artist: str) -> bool:
         if artist.lower() in short_description:
             return True
         elif artist.lower() in contributor:
-                return True
+            return True
         return False
     except requests.ConnectionError as conerr:
         print(f"{conerr.__class__.__name__}: Cannot connect to Wikipedia.")

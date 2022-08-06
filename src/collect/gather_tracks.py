@@ -34,9 +34,11 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
                         track_names.append(td.get_text().strip("\""))
                     else:
                         track_names.append(td.text.replace("\"", ""))
-                    track_duration = tr.find("td", attrs={
-                        'style': 'padding-right:10px;text-align:right;vertical-align:top'
-                    })
+                    # track_duration = tr.find("td", attrs={'style': 'padding-right:10px;text-align:right;vertical-align:top'})
+                    track_duration = tr.find("td", class_="tracklist-length")
+                    if track_duration is None:
+                        continue
+                    # print(track_duration)
                     if track_duration.sup:
                         track_duration.sup.decompose()
                     track_durations.append(track_duration.get_text())
@@ -50,9 +52,10 @@ def gather_tracks(session: requests.Session(), wiki_url: str) -> dict:
                     track_names.append(td.get_text().strip("\""))
                 else:
                     track_names.append(td.text.replace("\"", ""))
-                track_duration = tr.find("td", attrs={
-                    'style': 'padding-right:10px;text-align:right;vertical-align:top'
-                })
+                # track_duration = tr.find("td", attrs={'style': 'padding-right:10px;text-align:right;vertical-align:top'})
+                track_duration = tr.find("td", class_="tracklist-length")
+                if track_duration is None:
+                    continue
                 if track_duration.sup:
                     track_duration.sup.decompose()
                 track_durations.append(track_duration.get_text())
