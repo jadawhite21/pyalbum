@@ -26,4 +26,3 @@ def is_artist(session: requests.Session(), wiki_url: str, artist: str) -> bool:
         return False
     except requests.ConnectionError as conerr:
         print(f"{conerr.__class__.__name__}: Cannot connect to Wikipedia.")
-

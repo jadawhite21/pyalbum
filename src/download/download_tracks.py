@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 import youtube_dl
 import os
 
-# def download_tracks(playlist: dict, tmp_dir: str, album_dir: str) -> None:
 def download_tracks(playlist: dict, album_dir: str) -> None:
     """
     Downloads tracks with YouTube-DL
@@ -47,12 +46,6 @@ def download_tracks(playlist: dict, album_dir: str) -> None:
             print(f"Track \"{v['track']}\" already exists. Continuing...")
             continue
         else:
-            # with open(tmp_dir, 'r') as f:
-            #     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            #         for line in f:
-            #             ydl.download([line])
-            #     os.remove(tmp_dir)
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([v["url"]])
                 os.system('youtube-dl --rm-cache-dir')
-
