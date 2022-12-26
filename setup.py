@@ -17,7 +17,7 @@ REQUIRED = [
     'charset-normalizer==2.0.12',
     'h11==0.12.0',
     'httpcore==0.14.7',
-    'httpx==0.22.0',
+    'httpx==0.23.0',
     'idna==3.3',
     'requests==2.27.1',
     'rfc3986==1.5.0',
