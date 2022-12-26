@@ -12,18 +12,19 @@ Piece together an album with the help of Python and Wikipedia!
 * [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 * [youtube-dl](https://github.com/ytdl-org/youtube-dl)
 
-Clone the repository and install the above dependencies using `pip`.
+Clone the repository and install the above dependencies using the included
+`setup.py`.
 
 ```bash
 git clone https://github.com/megaultraok/pyalbum.git
-pip install -r pyalbum/requirements.txt
+python pyalbum/setup.py install
 ```
 
 It is recommended to install the dependencies using a Python virtual
 environment to keep possible existing versions of the dependencies on the host
 machine from conflicting with the required versions for this program.
 
-#### Dependencies for Linux users
+#### Other dependencies
 
 Please install the following dependencies using your distribution's package
 manager.
