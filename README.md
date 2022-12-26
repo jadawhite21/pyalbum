@@ -16,7 +16,7 @@ Clone the repository and install the above dependencies using `pip`.
 
 ```bash
 git clone https://github.com/megaultraok/pyalbum.git
-python setup.py install
+python pyalbum/setup.py install
 ```
 
 It is recommended to install the dependencies using a Python virtual
