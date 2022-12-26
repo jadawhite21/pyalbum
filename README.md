@@ -12,7 +12,8 @@ Piece together an album with the help of Python and Wikipedia!
 * [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 * [youtube-dl](https://github.com/ytdl-org/youtube-dl)
 
-Clone the repository and install the above dependencies using `pip`.
+Clone the repository and install the above dependencies using the included
+`setup.py`.
 
 ```bash
 git clone https://github.com/megaultraok/pyalbum.git
